@@ -170,7 +170,11 @@ set background=dark
 colorscheme solarized 
 
 " Set fonts for airline
-set guifont=Sauce\ Code\ Powerline
+if has('gui_win32')
+    set guifont=Sauce\ Code\ Powerline:h10
+else
+    set guifont=Sauce\ Code\ Powerline\ 10
+endif
 let g:airline_powerline_fonts = 1
 let g:Powerline_symbols = 'fancy'
 
