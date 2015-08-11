@@ -54,7 +54,7 @@ set autoread
 " like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
-let maplocalleader = "\\"
+let maplocalleader = "\<space>"
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -146,15 +146,6 @@ let g:csv_strict_columns = 1
 
 " Add a bit extra margin to the left
 set foldcolumn=1
-
-" Highlight Python lines that are longer than 120 characters
-"augroup vimrc_autocmds
-    "autocmd!
-    "" highlight characters past column 120
-    "autocmd FileType python highlight Excess ctermbg=Red guibg=Red
-    "autocmd FileType python match Excess /\%120v.*/
-    "autocmd FileType python set nowrap
-    "augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors, Fonts, Theming
@@ -304,10 +295,6 @@ set viminfo^=%
 " Always show the status line
 set laststatus=2
 
-" Format the status line
-"set statusline=\ %{HasPaste()}%F%m%r%h\ %{fugitive#statusline()}%=%4l,%3c
-"set statusline=\ %{HasPaste()}%F%m%r%h%=%4l,%3c
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editing mappings
@@ -320,13 +307,6 @@ func! DeleteTrailingWS()
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -344,6 +324,10 @@ map <leader>x :e ~/buffer.md<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
+" Get out of vimdiff mode easily
+map <leader>vc <C-W>c:diffoff<cr>
+" Always open diff in veritcal mode
+set diffopt=vertical
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Helper functions
@@ -441,6 +425,3 @@ let g:pymode_folding = 0
 " Change the default max line length from 80 to 120
 autocmd FileType python set colorcolumn=120
 let g:pymode_options_max_line_length = 120
-
-" Diff options
-set diffopt=vertical
