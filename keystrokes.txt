@@ -1,0 +1,5 @@
+Learning Shortcuts - New keystroke reference
+--------------------------------------------------------------------------------
+
+Surround Plugin:
+   ys<motion><char>     Surround text object/motion <motion> with <char> 
