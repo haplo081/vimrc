@@ -177,6 +177,9 @@ set laststatus=2
 
 " Always open diff in veritcal mode
 set diffopt=vertical
+
+" Force .md files to be Markdown files
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " }}}
 
 " ## SECTION | Colors / Fonts / Themes ###################### {{{
