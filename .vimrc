@@ -1,14 +1,11 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin setup with Vundle
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim:fdm=marker
+" ## SECTION | Plugin setup with Vundle ##################### {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
@@ -30,11 +27,9 @@ Plugin 'vim-scripts/sqlserver.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'sukima/xmledit'
 call vundle#end()
+" }}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Go home
+" ## SECTION | General ###################################### {{{
 cd ~/Downloads
 
 " Turn on line numbers
@@ -68,15 +63,13 @@ nnoremap <leader>nw :set nowrap!<cr>
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
+" }}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Filetype settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ## SECTION | Filetype settings ############################ {{{
 let g:sql_type_default = "sqlserver"
+" }}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VIM user interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ## SECTION | Settings / Defines ########################### {{{
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
@@ -97,7 +90,7 @@ else
     set wildignore+=.git\*,.hg\*,.svn\*
 endif
 
-"Always show current position
+" Always show current position
 set ruler
 
 " Height of the command bar
@@ -150,9 +143,43 @@ let g:csv_strict_columns = 1
 " Add a bit extra margin to the left
 set foldcolumn=1
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Colors, Fonts, Theming
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remember info about open buffers on close
+set viminfo^=%
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+" Turn backup off, since most stuff is in SVN, git etc anyway...
+set nobackup
+set nowb
+set noswapfile
+
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+" Always show status line
+set laststatus=2
+
+" Always open diff in veritcal mode
+set diffopt=vertical
+" }}}
+
+" ## SECTION | Colors / Fonts / Themes ###################### {{{
 " Enable syntax highlighting
 syntax enable 
 
@@ -184,53 +211,14 @@ let g:Powerline_symbols = 'fancy'
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
+" }}}
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Files, backups and undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git etc anyway...
-set nobackup
-set nowb
-set noswapfile
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use spaces instead of tabs
-set expandtab
-
-" Be smart when using tabs ;)
-set smarttab
-
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
-
-" Linebreak on 500 characters
-set lbr
-set tw=500
-
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
-
-
-""""""""""""""""""""""""""""""
-" Visual mode related
-""""""""""""""""""""""""""""""
+" ## SECTION | Keymappings ################################## {{{
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Moving around, tabs, windows and buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
@@ -248,7 +236,7 @@ map + <C-W>+
 map - <C-W>-
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>
+map <leader>bd :bd<cr>
 
 " Close all the buffers
 map <leader>ba :1,1000 bd!<cr>
@@ -292,20 +280,18 @@ autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
-" Remember info about open buffers on close
-set viminfo^=%
 
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-""""""""""""""""""""""""""""""
-" Status line
-""""""""""""""""""""""""""""""
-" Always show the status line
-set laststatus=2
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
 
+" Get out of vimdiff mode easily
+map <leader>vc <C-W>c:diffoff<cr>
+" }}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Editing mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ## SECTION | Functions #################################### {{{
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
   exe "normal mz"
@@ -315,30 +301,6 @@ endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
-
-" Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
-" Get out of vimdiff mode easily
-map <leader>vc <C-W>c:diffoff<cr>
-" Always open diff in veritcal mode
-set diffopt=vertical
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Helper functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
@@ -365,38 +327,9 @@ function! VisualSelection(direction, extra_filter) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
+" }}}
 
-
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
-endfunction
-
-" Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
-
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
-
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
-
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
-endfunction
-
-" Python-mode configurations
+" ## SECTION | Python-mode Config ########################### {{{
 " Keys:
 " K             Show python docs
 " <Ctrl-Space>  Rope autocomplete
@@ -432,3 +365,5 @@ let g:pymode_folding = 0
 " Change the default max line length from 80 to 120
 autocmd FileType python set colorcolumn=120
 let g:pymode_options_max_line_length = 120
+" }}}
+
