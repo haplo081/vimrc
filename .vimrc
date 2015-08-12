@@ -62,6 +62,9 @@ nmap <leader>w :w!<cr>
 " Quickly edit .vimrc file
 nnoremap <leader>ev :split $MYVIMRC<cr>
 
+" Toggle line wrapping
+nnoremap <leader>nw :set nowrap!<cr>
+
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
