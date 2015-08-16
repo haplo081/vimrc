@@ -26,6 +26,10 @@ Plugin 'chrisbra/csv.vim'
 Plugin 'vim-scripts/sqlserver.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'sukima/xmledit'
+Plugin 'tpope/vim-markdown'
+if !has("win32")
+    Plugin 'Valloric/YouCompleteMe'
+endif
 call vundle#end()
 " }}}
 
