@@ -147,9 +147,6 @@ let g:csv_strict_columns = 1
 " Add a bit extra margin to the left
 set foldcolumn=1
 
-" Remember info about open buffers on close
-set viminfo^=%
-
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
